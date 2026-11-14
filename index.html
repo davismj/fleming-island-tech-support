@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fleming Island Tech Support — On-site computer, network &amp; smart-home help</title>
+<meta name="description" content="Mobile on-site computer, network, and smart-home help in Fleming Island and Clay County, Florida. Virus removal, computer builds, home servers, Wi-Fi, and data backup.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- EGA palette ---------- */
+  :root{
+    --ega-blue:#0000AA;
+    --ega-blue-dark:#000088;
+    --ega-blue-mid:#0000EE;
+    --ega-cyan:#00AAAA;
+    --ega-cyan-br:#55FFFF;
+    --ega-magenta:#AA00AA;
+    --ega-magenta-br:#FF55FF;
+    --ega-yellow:#FFFF55;
+    --ega-green:#00AA00;
+    --ega-green-br:#55FF55;
+    --ega-grey:#AAAAAA;
+    --ega-white:#FFFFFF;
+
+    /* roles: dark (default) */
+    --bg:#0000AA;
+    --bg-deep:#000088;
+    --panel:rgba(0,0,136,.55);
+    --text:#FFFFFF;
+    --text-dim:#AAAAAA;
+    --frame:#AAAAAA;
+    --frame-cyan:#00AAAA;
+    --frame-mag:#AA00AA;
+    --frame-green:#00AA00;
+    --accent:#55FFFF;
+    --price:#FFFF55;
+    --link:#55FFFF;
+    --hot:#FFFF55;
+    --shadow:rgba(0,0,0,.35);
+  }
+  html[data-theme="light"]{
+    --bg:#F4F1E4;
+    --bg-deep:#E6E1CE;
+    --panel:#FFFFFF;
+    --text:#0B0B22;
+    --text-dim:#3A3A55;
+    --frame:#0000AA;
+    --frame-cyan:#006B6B;
+    --frame-mag:#8A008A;
+    --frame-green:#006B00;
+    --accent:#004F9F;
+    --price:#7A5A00;
+    --link:#004F9F;
+    --hot:#8A008A;
+    --shadow:rgba(0,0,0,.12);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg-deep);
+    color:var(--text);
+    font-family:"IBM Plex Mono",ui-monospace,"Cascadia Mono","Courier New",monospace;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* ---------- halftone outer frame (the ZZT border) ---------- */
+  .shell{
+    min-height:100vh;
+    padding:12px;
+    background-color:var(--bg-deep);
+    background-image:radial-gradient(var(--frame) 1px, transparent 1.15px);
+    background-size:5px 5px;
+  }
+  .doc{
+    max-width:880px;
+    margin:0 auto;
+    background:var(--bg);
+    border:2px solid var(--frame);
+    padding:clamp(16px,4vw,34px);
+    box-shadow:0 0 0 1px var(--shadow), 6px 6px 0 0 var(--shadow);
+  }
+
+  /* ---------- type ---------- */
+  h1,h2,h3{margin:0;font-weight:700;letter-spacing:.02em;line-height:1.2}
+  h1{font-size:clamp(1.32rem,5.2vw,2.05rem);text-transform:uppercase}
+  h2{font-size:clamp(1rem,3.4vw,1.18rem);text-transform:uppercase}
+  p{margin:.6em 0}
+  a{color:var(--link);text-underline-offset:3px}
+  .dim{color:var(--text-dim)}
+  .accent{color:var(--accent)}
+  .price{color:var(--price);font-weight:700}
+  .nowrap{white-space:nowrap}
+  .fill{
+    color:var(--price);
+    border-bottom:2px dashed var(--price);
+    padding:0 .15em;
+    font-weight:700;
+  }
+
+  /* ---------- header / boot banner ---------- */
+  .boot{border-bottom:2px solid var(--frame);padding-bottom:16px;margin-bottom:6px}
+  .boot-top{
+    display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;
+    justify-content:space-between;
+    font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--text-dim);
+  }
+  .online{color:var(--ega-green-br);font-weight:700;letter-spacing:.1em}
+  html[data-theme="light"] .online{color:#006B00}
+  .cursor{
+    display:inline-block;width:.62em;height:1em;vertical-align:-.14em;
+    background:currentColor;animation:blink 1.1s steps(1,end) infinite;
+  }
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  @media (prefers-reduced-motion:reduce){.cursor{animation:none}}
+  .tagline{margin:.5em 0 0;font-size:clamp(.92rem,3.4vw,1.05rem);color:var(--text-dim)}
+  .tagline b{color:var(--text);font-weight:600}
+  .sysline{
+    margin-top:12px;font-size:.74rem;letter-spacing:.1em;
+    color:var(--text-dim);text-transform:uppercase;
+  }
+
+  /* ---------- panels with tabbed labels ---------- */
+  .panel{
+    position:relative;
+    border:2px solid var(--frame);
+    background:var(--panel);
+    padding:26px 16px 18px;
+    margin:30px 0 22px;
+  }
+  html[data-theme="dark"] .panel{background:rgba(0,0,136,.5)}
+  .panel>.tab{
+    position:absolute;top:-.82em;left:14px;
+    background:var(--bg);
+    padding:0 .55em;
+    font-size:.76rem;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent);
+  }
+  .p-cyan{border-color:var(--frame-cyan)}
+  .p-cyan>.tab{color:var(--frame-cyan)}
+  .p-mag{border-color:var(--frame-mag)}
+  .p-mag>.tab{color:var(--ega-magenta-br)}
+  html[data-theme="light"] .p-mag>.tab{color:var(--frame-mag)}
+  .p-green{border-color:var(--frame-green)}
+  .p-green>.tab{color:var(--ega-green-br)}
+  html[data-theme="light"] .p-green>.tab{color:var(--frame-green)}
+  .p-yellow{border-color:var(--price)}
+  .p-yellow>.tab{color:var(--price)}
+
+  /* ---------- services ---------- */
+  ul.svc{list-style:none;margin:0;padding:0}
+  ul.svc li{
+    padding:9px 0 9px 0;
+    border-bottom:1px dotted var(--frame);
+    display:grid;grid-template-columns:auto 1fr;gap:.7em;
+  }
+  ul.svc li:last-child{border-bottom:0}
+  ul.svc .p{color:var(--accent);font-weight:700}
+  ul.svc b{color:var(--text)}
+  ul.svc span.d{color:var(--text-dim);display:block;font-size:.92rem}
+
+  /* ---------- pricing ---------- */
+  .rate{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5em;margin:0 0 .3em}
+  .rate .num{font-size:clamp(2.1rem,10vw,3.1rem);line-height:1;font-weight:700;color:var(--price)}
+  .rate .unit{font-size:1rem;color:var(--text)}
+  .rate .who{font-size:.82rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;width:100%}
+  .fees{margin:.9em 0 0;padding:0;list-style:none}
+  .fees li{padding:5px 0;border-bottom:1px dotted var(--frame)}
+  .fees li:last-child{border-bottom:0}
+  .fine{margin-top:12px;font-size:.86rem;color:var(--text-dim)}
+
+  /* ---------- hotkey command list (ZZT style) ---------- */
+  ul.cmd{list-style:none;margin:.2em 0 0;padding:0;display:grid;gap:8px}
+  ul.cmd li{display:grid;grid-template-columns:auto 1fr;gap:.7em;align-items:baseline}
+  .key{
+    display:inline-grid;place-items:center;
+    min-width:1.75em;height:1.75em;padding:0 .3em;
+    border:2px solid var(--hot);color:var(--hot);
+    font-weight:700;font-size:.86rem;line-height:1;
+  }
+  ul.cmd a{color:var(--text);text-decoration:none;border-bottom:1px solid transparent}
+  ul.cmd a:hover,ul.cmd a:focus{border-bottom-color:var(--link);color:var(--link)}
+  ul.cmd .k2{color:var(--text-dim);font-size:.84rem;display:block}
+
+  /* ---------- hero actions ---------- */
+  .actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 4px}
+  .btn{
+    display:inline-block;text-decoration:none;font:inherit;font-weight:700;
+    padding:.7em 1.05em;border:2px solid var(--accent);
+    color:var(--accent);background:transparent;cursor:pointer;
+    letter-spacing:.04em;text-transform:uppercase;font-size:.82rem;
+  }
+  .btn:hover,.btn:focus{background:var(--accent);color:var(--bg)}
+  html[data-theme="light"] .btn:hover,html[data-theme="light"] .btn:focus{color:#fff}
+  .btn.primary{border-color:var(--price);color:var(--price)}
+  .btn.primary:hover,.btn.primary:focus{background:var(--price);color:#0B0B22}
+
+  /* ---------- contact / QR ---------- */
+  .contact{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+  @media(max-width:560px){.contact{grid-template-columns:1fr}}
+  .phone{font-size:clamp(1.3rem,6vw,1.85rem);font-weight:700;color:var(--price);text-decoration:none;letter-spacing:.02em}
+  .phone:hover,.phone:focus{text-decoration:underline}
+  .qr{width:150px;height:150px;display:block;background:#fff;padding:6px;border:2px solid var(--frame)}
+  .qrwrap{text-align:center}
+  .qrwrap small{display:block;margin-top:6px;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim)}
+
+  /* ---------- footer ---------- */
+  footer{margin-top:26px;padding-top:14px;border-top:2px solid var(--frame);font-size:.76rem;color:var(--text-dim);line-height:1.6}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin-bottom:14px}
+  .toolbar .btn{font-size:.72rem;padding:.45em .7em}
+
+  /* ---------- print: flyer ---------- */
+  .flyer{display:none}
+  @media print{
+    @page{margin:0.5in}
+    body{background:#fff;color:#111;font-size:11pt}
+    .shell{padding:0;background:#fff;background-image:none}
+    .doc{border:3px solid #0000AA;box-shadow:none;max-width:none;padding:22px}
+    .toolbar,.screen-only{display:none !important}
+    a{color:#000;text-decoration:none}
+    .price,.fill,.phone{color:#0000AA !important}
+    .accent{color:#0000AA !important}
+    .cursor{display:none}
+    .panel{background:#fff !important;border-color:#0000AA !important;break-inside:avoid}
+    .panel>.tab{background:#fff;color:#0000AA !important}
+    ul.svc .p{color:#0000AA !important}
+    ul.svc span.d{color:#333 !important}
+    .rate .num{color:#0000AA !important}
+    .key{border-color:#000 !important;color:#000 !important}
+    .qr{border-color:#0000AA}
+    footer{border-color:#0000AA;color:#333}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="doc">
+
+    <div class="toolbar screen-only">
+      <button class="btn" id="themeBtn" type="button">◐ Light mode</button>
+      <button class="btn" onclick="window.print()" type="button">⎙ Print flyer</button>
+    </div>
+
+    <!-- ================= SCREEN SITE ================= -->
+    <div class="screen-only">
+
+      <header class="boot">
+        <div class="boot-top">
+          <span>Fleming Island Tech Support</span>
+          <span class="online">[ ONLINE ]<span class="cursor"></span></span>
+        </div>
+        <h1>On-site computer, network &amp; smart-home help</h1>
+        <p class="tagline"><b>Fleming Island &amp; surrounding areas</b> · Clay County, Florida</p>
+        <p class="sysline">SYS <span id="clock">--:--:--</span> · SERVICE AREA: CLAY COUNTY · BY APPOINTMENT</p>
+        <div class="actions">
+          <a class="btn primary" href="https://squareup.com/appointments/PLACEHOLDER">Book an appointment ▸</a>
+          <a class="btn" href="tel:+18503295553">Call (850) 329-5553</a>
+        </div>
+      </header>
+
+      <section class="panel p-cyan">
+        <span class="tab">Services</span>
+        <ul class="svc">
+          <li><span class="p">&gt;</span><span><b>On-site computer help.</b> <span class="d">Viruses, slow machines, crashes, software problems, Windows issues.</span></span></li>
+          <li><span class="p">&gt;</span><span><b>New computer builds.</b> <span class="d">Parts sourcing, assembly, Windows setup, and moving your data off the old machine. Built, installed, configured — you plug it in and it works.</span></span></li>
+          <li><span class="p">&gt;</span><span><b>Home servers and networking.</b> <span class="d">NAS storage, shared family storage, media and backup servers, wired and mesh Wi-Fi.</span></span></li>
+          <li><span class="p">&gt;</span><span><b>Smart-home setup.</b> <span class="d">Cameras, doorbells, thermostats, speakers, lighting — HomeKit, Alexa, Google Home.</span></span></li>
+          <li><span class="p">&gt;</span><span><b>Data backup &amp; recovery.</b> <span class="d">Automatic backups so you don't lose photos or files again.</span></span></li>
+          <li><span class="p">&gt;</span><span><b>Passwords &amp; accounts.</b> <span class="d">Password manager, two-factor authentication, recovering a locked account.</span></span></li>
+          <li><span class="p">&gt;</span><span><b>Something else.</b> <span class="d">Most things are fixable on the spot. Just ask.</span></span></li>
+        </ul>
+      </section>
+
+      <section class="panel p-mag">
+        <span class="tab">Rates</span>
+        <div class="rate">
+          <span class="num">$100</span>
+          <span class="unit">/ hour</span>
+          <span class="who">Fleming Island residents</span>
+        </div>
+        <p style="margin:.2em 0 .6em">One rate. No tiers, no packages. You know the number before I start.</p>
+        <ul class="fees">
+          <li>Diagnostic visit — <span class="price">$25</span>, <b>waived with any service</b></li>
+          <li>Phone consultation — <span class="price">free</span></li>
+          <li>Parts &amp; hardware — at cost, on the receipt</li>
+        </ul>
+        <p class="fine">Work is quoted in writing before it starts. If it's a bigger job, you get a flat price, not a running clock.</p>
+      </section>
+
+      <section class="panel p-green">
+        <span class="tab">Service area</span>
+        <p><b>Clay County, Florida</b> — Fleming Island, Orange Park, Middleburg, Green Cove Springs, and the surrounding Clay County communities.</p>
+        <p class="dim">Appointments <span class="fill">[HOURS — Mon–Sat, 8am–6pm]</span>, on-site at your home or office.</p>
+        <p class="dim"><b>Outside Clay County?</b> Out of range — my regular on-site area stops at the county line. Call anyway and I'll tell you honestly whether I can help.</p>
+      </section>
+
+      <section class="panel p-cyan">
+        <span class="tab">Why me</span>
+        <ul class="svc">
+          <li><span class="p">&gt;</span><span>I come to you — your kitchen table, your home office, your shop.</span></li>
+          <li><span class="p">&gt;</span><span>Same-day appointments when the schedule allows.</span></li>
+          <li><span class="p">&gt;</span><span><span class="fill">[X]</span> years as a senior software engineer — I build and run the systems I'm fixing.</span></li>
+          <li><span class="p">&gt;</span><span>Plain English. You'll know what was wrong and what it cost before I leave.</span></li>
+          <li><span class="p">&gt;</span><span>Every repair backed by a <span class="fill">[30]</span>-day guarantee.</span></li>
+        </ul>
+      </section>
+
+      <section class="panel p-yellow">
+        <span class="tab">Book</span>
+        <div class="contact">
+          <div>
+            <p style="margin-top:0">Pick a command:</p>
+            <ul class="cmd">
+              <li><span class="key">B</span><span><a href="https://squareup.com/appointments/PLACEHOLDER">Book an appointment</a><span class="k2">online, any time</span></span></li>
+              <li><span class="key">C</span><span><a href="tel:+18503295553">Call (850) 329-5553</a><span class="k2">fastest for urgent problems</span></span></li>
+              <li><span class="key">T</span><span><a href="sms:+18503295553">Text (850) 329-5553</a><span class="k2">send a photo of the problem</span></span></li>
+              <li><span class="key">E</span><span><a href="mailto:hello@flemingislandtechsupport.com">hello@flemingislandtechsupport.com</a><span class="k2">details, quotes, invoices</span></span></li>
+            </ul>
+            <p style="margin-top:16px">
+              <a class="phone" href="tel:+18503295553">(850) 329-5553</a>
+            </p>
+          </div>
+          <div class="qrwrap">
+            <img class="qr"
+                 src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=0&color=0000AA&bgcolor=FFFFFF&data=https%3A%2F%2Fsquareup.com%2Fappointments%2FPLACEHOLDER"
+                 alt="QR code linking to the booking page">
+            <small>Scan to book</small>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        Fleming Island Tech Support · Clay County, Florida · (850) 329-5553<br>
+        On-site computer repair, custom computer builds, home servers, networking, smart-home setup, and data backup.
+      </footer>
+    </div>
+
+    <!-- ================= PRINT FLYER ================= -->
+    <div class="flyer">
+      <div class="boot" style="border-color:#0000AA">
+        <div class="boot-top" style="color:#0000AA">
+          <span>FLEMING ISLAND TECH SUPPORT</span>
+          <span>CLAY COUNTY, FL</span>
+        </div>
+        <h1 style="color:#0000AA;margin-top:8px">On-site computer &amp; network help</h1>
+        <p style="margin:.3em 0 0"><b>Fleming Island &amp; surrounding areas · Clay County, Florida</b></p>
+      </div>
+
+      <div class="panel p-mag" style="margin-top:22px">
+        <span class="tab">What I do</span>
+        <ul class="svc">
+          <li><span class="p">&gt;</span><span><b>Viruses, slow computers, crashes</b></span></li>
+          <li><span class="p">&gt;</span><span><b>New computer builds</b> — built, installed, set up</span></li>
+          <li><span class="p">&gt;</span><span><b>Home servers &amp; networking</b> — family storage &amp; backup</span></li>
+          <li><span class="p">&gt;</span><span><b>Wi-Fi, cameras &amp; smart-home</b></span></li>
+        </ul>
+      </div>
+
+      <div class="panel p-yellow">
+        <span class="tab">Rates</span>
+        <p style="margin:0"><span class="price" style="font-size:20pt;font-weight:700">$100/hr</span> for Fleming Island residents</p>
+        <p style="margin:.4em 0 0">Diagnostic visit <b>$25</b> — waived with any service</p>
+      </div>
+
+      <p style="font-size:16pt;font-weight:700;margin:18px 0 4px">(850) 329-5553</p>
+      <p style="margin:0">Call or text. Same-day appointments when the schedule allows.</p>
+      <p style="margin-top:14px;font-size:9pt">Fleming Island Tech Support · Clay County, Florida · flemingislandtechsupport.com</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ---- clock ----
+  (function(){
+    var el = document.getElementById('clock');
+    function tick(){
+      var d = new Date();
+      var p = function(n){ return String(n).padStart(2,'0'); };
+      el.textContent = p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+
+  // ---- theme toggle ----
+  (function(){
+    var root = document.documentElement;
+    var btn  = document.getElementById('themeBtn');
+    var saved = null;
+    try { saved = localStorage.getItem('fits-theme'); } catch(e){}
+    if (saved) root.setAttribute('data-theme', saved);
+    function label(){
+      btn.textContent = root.getAttribute('data-theme') === 'light' ? '◑ Dark mode' : '◐ Light mode';
+    }
+    label();
+    btn.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('fits-theme', next); } catch(e){}
+      label();
+    });
+  })();
+
+  // ---- swap screen/flyer when printing ----
+  (function(){
+    var before = function(){
+      document.querySelector('.screen-only').style.display = 'none';
+      document.querySelector('.flyer').style.display = 'block';
+    };
+    var after = function(){
+      document.querySelector('.screen-only').style.display = '';
+      document.querySelector('.flyer').style.display = 'none';
+    };
+    window.addEventListener('beforeprint', before);
+    window.addEventListener('afterprint', after);
+  })();
+</script>
+</body>
+</html>
